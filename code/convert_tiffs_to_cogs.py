@@ -1,3 +1,6 @@
+# Converts the tiff images in to valid cog formatted images. When converting, the script checks whether the input image
+# is already in a valid cog format.
+
 from logging import warning
 from osgeo import gdal
 from pathlib import Path
@@ -22,7 +25,7 @@ if __name__=='__main__':
         try:
             # Checking if the img is already a cog.
             warnings, errors, details = validate_cloud_optimized_geotiff.validate(img_path.as_posix())
-            if len(warnings) == 0 and len(errors) == 0:
+            if len(errors) == 0 and len(warnings) == 0:
                 # is a valid cog. Being strict here, can remove the warnings condition - yet to test.
                 cog_format_img_count += 1
                 print(f'The image {img_path} is already in the cog format.')
@@ -35,5 +38,6 @@ if __name__=='__main__':
                 convert_tiff_to_cog(img_path.as_posix(), cog_file_path.as_posix())
         except validate_cloud_optimized_geotiff.ValidateCloudOptimizedGeoTIFFException as e:
             print('Unable to open the file or the file is not a Tiff.')
+            continue
     
     print(f'Converted {len(tiff_imgs_paths)-cog_format_img_count} image(s) to cog format. {cog_format_img_count}/{len(tiff_imgs_paths)} images were already in the cog format.')
