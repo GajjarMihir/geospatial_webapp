@@ -19,17 +19,24 @@
         <script>
             // Creating map options
             var mapOptions = {
-                center: [51.505, -0.09],
-                zoom: 13
+                center: [39.335, -5.885],
+                zoom: 10,
+                crs: L.CRS.EPSG4326
             };
             
             // Creating a map object
             var map = L.map('map', mapOptions);
 
+			L.tileLayer.wms('http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
+				maxZoom: 25,
+				layers: 'train',
+			}).bringToFront().addTo(map);
+            
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
+				maxZoom: 25,
                 attribution: '© OpenStreetMap'
             }).addTo(map);
+
         </script>
     </body>
 </html>
