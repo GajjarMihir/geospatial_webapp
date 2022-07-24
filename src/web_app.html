@@ -17,26 +17,31 @@
         <div id="map"></div>
     
         <script>
+            // Latitude and Longitude of the point that is displayed when the map first loads.
+            var startPoint = [latitude=-5.733, longitude=39.298]
+
             // Creating map options
             var mapOptions = {
-                center: [39.335, -5.885],
-                zoom: 10,
-                crs: L.CRS.EPSG4326
+                center: startPoint,
+                zoom: 15,
+                crs: L.CRS.EPSG3857,            
             };
             
             // Creating a map object
             var map = L.map('map', mapOptions);
 
-			L.tileLayer.wms('http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
+            L.tileLayer.wms('http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
 				maxZoom: 25,
 				layers: 'train',
-			}).bringToFront().addTo(map);
+                crs: L.CRS.EPSG3857
+			}).addTo(map);
             
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				maxZoom: 25,
-                attribution: '© OpenStreetMap'
+                attribution: '© OpenStreetMap',
+                crs: L.CRS.EPSG3857
             }).addTo(map);
-
+			
         </script>
     </body>
 </html>
