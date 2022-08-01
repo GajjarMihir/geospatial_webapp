@@ -30,6 +30,25 @@ I am going forward with option 2 because it should be easier to manage the image
 
 The next step is to install and setup Geoserver and make it work with COG's.
 
+- Installed and set up Geoserver
+
+- I need to add alpha band in order to make the black edges disappear. I tried to make the black color transparent using Geoserver but the edges were not smooth unless the "Overview Policy" was set to "IGNORE" but with this option rendering of the image tiles in the web app was very slow. After adding the alpha channel/band the edges were very smooth and the "Overview Policy" was set to "QUALITY". So next, I will add a python script in the pipeline to add alpha channel to all the .tif images which are to be served in order to blend them nicely with the base map.
+
+Adding no data value to .tif images
+
+- I also tried to add no data value to the .tif images by using the following commands:
+
+1. ~{path_to}/anaconda3/envs/geospatial_webapp/bin/gdal_edit.py -a_nodata 255 gedit_test/gedit_test.tif
+2.  gdal_translate -a_nodata 255 input_image.tif output_image.tif
+
+But the (black) boundaries of the .tif images were not smooth with these.tif images and hence I will go ahead with adding the alpha band to the .tif images.
+
+Now, we have added the .tif image data on top of the base map in the leaflet webapp. The next step would be to add the polygons on top of the .tif image data.
+
+**Adding polygons on top of .tif image data in the webapp**
+
+- 
+
 
 
 
