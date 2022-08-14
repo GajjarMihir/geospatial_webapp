@@ -35,17 +35,6 @@
             // map.getPane('tanzania_tiles').style.zIndex = 190;
             // map.getPane('tanzania_tiles').style.pointerEvents = 'none';
 
-            var tanzania_layer = L.tileLayer.wms(
-                baseUrl='http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
-                    layers: 'cog_images_with_alpha_band',
-                    maxZoom: 25,
-                    crs: L.CRS.EPSG3857,
-                    noWrap: true,
-                    // pane: 'tanzania_tiles',
-                    transparent: true,
-                    format: 'image/png'
-                });
-
             var osm_layer = L.tileLayer(
                 baseUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 25,
@@ -56,9 +45,33 @@
                     format: 'image/png'
                 });
 
-            baseLayer = L.layerGroup([osm_layer, tanzania_layer]);
+            var tanzania_layer = L.tileLayer.wms(
+            baseUrl='http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
+                layers: 'train_images',
+                maxZoom: 25,
+                crs: L.CRS.EPSG3857,
+                noWrap: true,
+                // pane: 'tanzania_tiles',
+                transparent: true,
+                format: 'image/png'
+            });
+
+            var polygon_layer = L.tileLayer.wms(
+                baseUrl='http://localhost:8080/geoserver/OpenAI_Tanzania/wms?', {
+                    layers: 'grid_001,grid_022,grid_023,grid_028,grid_029,grid_035,grid_036,grid_042,grid_043,grid_049,grid_050,grid_051,grid_058',
+                    maxZoom: 25,
+                    crs: L.CRS.EPSG3857,
+                    noWrap: true,
+                    transparent: true,
+                    format: 'image/png'
+                }
+            )
+
+            baseLayer = L.layerGroup([osm_layer, tanzania_layer, polygon_layer]);
             map.addLayer(baseLayer);
 
         </script>
     </body>
 </html>
+
+

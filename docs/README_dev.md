@@ -46,8 +46,14 @@ But the (black) boundaries of the .tif images were not smooth with these.tif ima
 Now, we have added the .tif image data on top of the base map in the leaflet webapp. The next step would be to add the polygons on top of the .tif image data.
 
 **Adding polygons on top of .tif image data in the webapp**
+- Tried using the L.geoJSON option but need to manually add the .geojson data in the file as text - this does not look like an elegant option
+- Also tried the leaflet ajax plugin but it did not work - got two errors and one of them said that it was having issues accessing the .geojson file on disk because of permission issues. I thought serving with wms might be a better option and hence the next step.
+- Now, I am serving the .geojson files after converting them to .shp file via Geoserver to the leaflet webapp. The only step that I have to add is a script to convert the .geojson files to .shp files in order to serve this data with Geoserver. There's a plugin for geojson files in geoserver but they say it's not supported anymore and there are issues with it so going ahead with the .shp files option should be more stable and it's a standard format so there should not be any issues.
+- Will create a script to convert .geojson files to .shp files using geopandas.
+- After creating this script, I used Geoserver to serve all these .shpfiles and was able to load the polygons in the web app.
 
-- 
+**Adding control to make the polygons transparent**
+
 
 
 
