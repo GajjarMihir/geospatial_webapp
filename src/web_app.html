@@ -16,6 +16,11 @@
 
     <body>
         <div id="map"></div>
+
+        <div class="slidecontainer">
+            <input type="range" min="1" max="100" value="50" step="1" class="slider" id="slider_range">
+            <p>Opacity: <span id="slider"></span></p>
+          </div>
     
         <script>
             // Latitude and Longitude of the point that is displayed when the map first loads.
@@ -66,9 +71,15 @@
                     format: 'image/png'
                 }
             )
-
             baseLayer = L.layerGroup([osm_layer, tanzania_layer, polygon_layer]);
             map.addLayer(baseLayer);
+
+            var slider = document.getElementById("slider_range");
+            var output = document.getElementById("slider");
+
+            slider.oninput = function(){
+                polygon_layer.setOpacity(this.value/100);
+            }
 
         </script>
     </body>
